@@ -1,0 +1,114 @@
+{% extends 'adminbase.html.twig' %}
+
+{% block title %}Room
+{% endblock %}
+
+{% block body %}
+	<!-- Content Wrapper. Contains page content -->
+	<div
+		class="content-wrapper">
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+			<div class="container-fluid">
+				<div class="row mb-2">
+					<div class="col-sm-6">
+						<h1>{{room.title}}</h1>
+					</div>
+					<div class="col-sm-6">
+						<ol class="breadcrumb float-sm-right">
+							<a href="/admin/room">
+								<li class="breadcrumb-item">Home</li>
+							</a>&nbsp;/&nbsp;
+							<li class="breadcrumb-item active">View Room</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+			<!-- /.container-fluid -->
+		</section>
+
+		<!-- Main content -->
+		<section
+			class="content">
+
+			<!-- Default box -->
+			<div class="card">
+				<div class="card-header">
+					<h3 class="card-title">View Room</h3>
+
+					<div class="card-tools">
+						<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+							<i class="fas fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+							<i class="fas fa-times"></i>
+						</button>
+					</div>
+				</div>
+				<div class="card-body">
+
+
+					<table class="table">
+						<tbody>
+							<tr>
+								<th>Id</th>
+								<td>{{ room.id }}</td>
+							</tr>
+							<tr>
+								<th>Title</th>
+								<td>{{ room.title }}</td>
+							</tr>
+							<tr>
+								<th>Description</th>
+								<td>{{ room.description }}</td>
+							</tr>
+							<tr>
+								<th>Image</th>
+								<td><img src="{{ asset('uploads/images/' ~ room.image) }}"  width="300"></td>
+							</tr>
+							<tr>
+								<th>Price</th>
+								<td>€ {{ room.price }}</td>
+							</tr>
+							<tr>
+								<th>Status</th>
+								<td>{{ room.status }}</td>
+							</tr>
+							<tr>
+								<th>Number</th>
+								<td>{{ room.number }}</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="card-body">
+
+
+						<div class="row">
+							<div class="col-md-2">
+								<a href="{{ path('admin_admin') }}" class="btn btn-block btn-info">Back to List</a>
+							</div>
+							{% if is_granted('ROLE_ADMIN') %}
+							<div class="col-md-2">
+								<a href="{{ path('admin_room_edit', {'id': room.id}) }}" class="btn btn-block btn-success">Edit</a>
+							</div>
+							<div class="col-md-2">
+								{{ include('admin/room/_delete_form.html.twig') }}
+							</div>
+							{% endif %}
+						</div>
+					</div>
+
+				</div>
+				<!-- /.card-body -->
+				<div class="card-footer">
+					Footer
+				</div>
+				<!-- /.card-footer-->
+			</div>
+			<!-- /.card -->
+
+		</section>
+		<!-- /.content -->
+	</div>
+	<!-- /.content-wrapper -->
+{% endblock %}

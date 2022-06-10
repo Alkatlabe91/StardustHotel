@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rooms
+{% endblock %}
+
+{% block body %}
+	<SCRIPT language="JavaScript" type="text/javascript">
+		function openWin(windowURL, windowName, windowFeatures) {
+window.open(windowURL, windowName, windowFeatures);
+}
+	</SCRIPT>
+	<!-- Subintro
+	    ================================================== -->
+	<section id="subintro">
+		<div class="container">
+			<div class="row">
+				<div class="span8">
+					<ul class="breadcrumb">
+						<li>
+							<a href="/home">
+								<i class="icon-home"></i>
+							</a>
+							<i class="icon-angle-right"></i>
+						</li>
+						<li>
+							<a href="#">Room Booking
+							</a>
+							<i class="icon-angle-right"></i>
+						</li>
+						{# <li class="active">{{ rooms.title  }}</li> #}
+					</ul>
+				</div>
+				<div class="span4">
+					<div class="search">
+						<form class="input-append">
+							<input class="search-form" id="appendedPrependedInput" type="text" placeholder="Search here.."/>
+							<button class="btn btn-dark" type="submit">Search</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="ftco-section bg-light">
+		<div class="container">
+			<div class="row">
+            {% for room in rooms %}
+				<div class="col-md-4 ftco-animate fadeInUp ftco-animated">
+					<div class="block-7">
+						<div class="img" style="background-image: url('{{ asset('uploads/images/' ~ room.image) }}')"></div>
+						<div class="text-center p-4">
+							<span class="excerpt d-block">{{room.title}}</span>
+						    <span class="price"><sup>€</sup> <span class="number">{{room.price}}</span><sub id="night">/At night</sub></span>
+							</span>
+							<ul class="pricing-text mb-5">
+                            <strong><li><span class="fa fa-check mr-2"></span>{{room.description}}</li></strong>
+                            {# <li><span class="fa fa-check mr-2"></span>3 Vet Visit</li>
+                            <li><span class="fa fa-check mr-2"></span>3 Pet Spa</li>
+                            <li><span class="fa fa-check mr-2"></span>Free Supports</li> #}
+                        </ul>
+						  <form  action="{{ path('app_user_reservation_new', {'rid': room.id})}}" method="post">
+                                                Days <input type="number" id="days" name="days" value="1" style="width: 30px" >
+                                                Checkin Date :<input type="date" id="checkin" name="checkin"  style="width: 140px" required>
+                                                <input type="submit" value="Reserve Room" class="btn btn-primary d-block px-2 py-3">
+                                            </form>
+							{# <a href="{{ path('app_user_reservation_new', {'rid': room.id})}}" class="btn btn-primary d-block px-2 py-3">Reserve Room</a> #}
+						</div>
+					</div>
+				</div>
+                {% endfor %}
+			</div>
+		</div>
+	</section>
+
+
+{% endblock %}
+
+

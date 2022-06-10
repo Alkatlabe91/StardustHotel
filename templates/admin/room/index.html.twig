@@ -1,0 +1,135 @@
+{% extends 'adminbase.html.twig' %}
+
+{% block title %}Room List
+{% endblock %}
+
+
+{% block body %}
+
+	<SCRIPT language="JavaScript" type="text/javascript">
+		function openWin(windowURL, windowName, windowFeatures) {
+window.open(windowURL, windowName, windowFeatures);
+}
+	</SCRIPT>
+
+	<!-- Content Wrapper. Contains page content -->
+	<div
+		class="content-wrapper">
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+			<div class="container-fluid">
+				<div class="row mb-2">
+					<div class="col-sm-6">
+					{% if is_granted('ROLE_ADMIN') %}
+						<div class="col-md-4">
+							<a href="{{ path('admin_room_new') }}" class="btn btn-block btn-success">Create New room</a>
+						</div>
+						{% endif %}
+					</div>
+					<div class="col-sm-6">
+						<ol class="breadcrumb float-sm-right">
+							<li class="breadcrumb-item">
+								<a href="/admin">Home</a>
+							</li>
+							<li class="breadcrumb-item active">Room List</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+			<!-- /.container-fluid -->
+		</section>
+
+		<!-- Main content -->
+		<section
+			class="content">
+
+			<!-- Default box -->
+			<div class="card">
+				<div class="card-header">
+					<h3 class="card-title">room List</h3>
+
+					<div class="card-tools">
+						<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+							<i class="fas fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+							<i class="fas fa-times"></i>
+						</button>
+					</div>
+				</div>
+				<div class="card-body">
+
+
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Title</th>
+								<th>Description</th>
+								<th>Image</th>
+								<th>Price</th>
+								<th>Status</th>
+								<th>Number</th>
+
+
+							</tr>
+						</thead>
+						<tbody>
+							{% for room in rooms %}
+								<tr>
+									<td>{{ room.id }}</td>
+									<td>{{ room.title }}</td>
+									<td nowrap>{{ room.description }}</td>
+									<td>
+										<img src="{{ asset('uploads/images/' ~ room.image) }}" height="100" width="100">
+									</td>
+									<td>€
+										{{ room.Price }}</td>
+
+									<td>{{ room.status }}</td>
+									<td>{{ room.Number }}</td>
+
+									{# <td><a href="{{ path('admin_user_show', {'id': room.userid}) }}">
+																		                                    {{ room.name }} {{ room.surname }} </td>
+																		                                </a> #}
+
+
+									<td>
+										<a href="{{ path('admin_room_show', {'id': room.id}) }}" class="btn btn-block btn-info">Show</a>
+									</td>
+									{% if is_granted('ROLE_ADMIN') %}
+
+									<td>
+										<a href="{{ path('admin_room_edit', {'id': room.id}) }}" class="btn btn-block btn-primary">Edit</a>
+									</td>
+									<td>
+										{{ include('admin/room/_delete_form.html.twig') }}
+									</td>
+									{% endif %}
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="17">no records found</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+
+
+				</div>
+
+
+				<!-- /.card-body -->
+				<div class="card-footer">
+					Footer
+				</div>
+				<!-- /.card-footer-->
+			</div>
+			<!-- /.card -->
+
+		</section>
+		<!-- /.content -->
+	</div>
+	<!-- /.content-wrapper -->
+
+{% endblock %}
