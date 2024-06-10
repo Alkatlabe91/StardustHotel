@@ -1,5 +1,5 @@
-###You must first install composer using this command:
-install composer
+###You must first install composer using this command:<br/>
+composer install<br/>
 
 ##user login-  /loginuser
 test@gmail.com
